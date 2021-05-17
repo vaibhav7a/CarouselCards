@@ -36,9 +36,8 @@ const App: () => Node = () => {
           keyExtractor={item => {
             return item.id;
           }}
-          renderItem={(dataItem, index) => {
-            console.log('idx: ' + index);
-            return <CarouselCard data={dataItem.item} itemWidth={ITEM_WIDTH} radius={8}/>;
+          renderItem={({item, index}) => {
+            return <CarouselCard data={item} itemWidth={ITEM_WIDTH} radius={8} rowIndex={index} scrollX={scrollX}/>;
           }}
           ItemSeparatorComponent={() => {
             return (
@@ -50,11 +49,11 @@ const App: () => Node = () => {
               />
             );
           }}
-          // onScroll={Animated.event(
-          //   [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          //   { useNativeDriver: false }
-          // )}
-          //scrollEventThrottle={12}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+            { useNativeDriver: false }
+          )}
+          scrollEventThrottle={12}
         />
       </View>
     </View>
@@ -64,7 +63,7 @@ const App: () => Node = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignContent: 'center',
   },
   carouselContainer: {
@@ -73,6 +72,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 40,
     marginLeft: 15,
+    marginRight: 15,
+    flex: 1,
   },
   herderText: {
     textAlign: 'left',

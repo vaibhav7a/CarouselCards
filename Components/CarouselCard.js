@@ -8,25 +8,41 @@ import {
   Animated,
 } from 'react-native';
 
-// const inputRange = [
-//     (idx - 1) * ITEM_WIDTH,
-//     idx * ITEM_WIDTH,
-//     (idx + 1) * ITEM_WIDTH,
-//   ]
-
-//   const translate = scrollX.interpolate({
-//     inputRange,
-//     outputRange: [0.85, 1, 0.85],
-//   })
-
-//   const opacity = scrollX.interpolate({
-//     inputRange,
-//     outputRange: [0.5, 1, 0.5],
-//   })
-
 const CarouselCard = props => {
+  const OFFSET = 0;
+  const idx = props.rowIndex;
+  const itemWidth = props.itemWidth;
+  const inputRange = [
+    (idx - 1) * itemWidth,
+    idx * itemWidth,
+    (idx + 1) * itemWidth,
+  ];
+  console.log('Input ' + inputRange);
+  console.log(props.scrollX);
+
+  const translate = props.scrollX.interpolate({
+    inputRange,
+    outputRange: [0.85, 1, 0.85],
+  });
+
+  console.log('adsd ' + translate[0]);
+
+
+  const opacity = props.scrollX.interpolate({
+    inputRange,
+    outputRange: [0.5, 1, 0.5],
+  });
   return (
-    <Animated.View style={{...styles.container, ...{width: props.itemWidth, borderRadius: props.radius}}}>
+    <Animated.View
+      style={{
+        ...styles.container,
+        ...{
+          width: itemWidth,
+          borderRadius: props.radius,
+          opacity: opacity,
+          transform: [{scaleY: translate}],
+        },
+      }}>
       <ImageBackground
         style={{
           ...styles.backgroudImage,
