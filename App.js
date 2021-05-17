@@ -22,7 +22,7 @@ const App: () => Node = () => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.carouselContainer}>
-        <Text style={styles.herderText}>Today</Text>
+        <Text style={styles.herderText}>Category</Text>
         <FlatList
           decelerationRate={'normal'}
           snapToAlignment={'center'}
