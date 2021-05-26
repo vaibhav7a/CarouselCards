@@ -9,9 +9,11 @@ import {
 } from 'react-native';
 
 const CarouselCard = props => {
-  const OFFSET = 0;
+  const OFFSET = 40;
   const idx = props.rowIndex;
   const itemWidth = props.itemWidth;
+  const items = props.totalItem;
+  let delayValue = 500;
   const inputRange = [
     (idx - 1) * itemWidth,
     idx * itemWidth,
@@ -27,7 +29,6 @@ const CarouselCard = props => {
 
   console.log('adsd ' + translate[0]);
 
-
   const opacity = props.scrollX.interpolate({
     inputRange,
     outputRange: [0.5, 1, 0.5],
@@ -40,6 +41,8 @@ const CarouselCard = props => {
           width: itemWidth,
           borderRadius: props.radius,
           opacity: opacity,
+          marginLeft: idx === 0 ? OFFSET : 0,
+          marginRight: idx === items.length - 1 ? OFFSET : 0,
           transform: [{scaleY: translate}],
         },
       }}>
